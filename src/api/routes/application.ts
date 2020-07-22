@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-//import middlewares from '../middlewares';
+import middlewares from "../middlewares";
 
 const route = Router();
 
@@ -8,13 +8,22 @@ export default (app: Router) => {
     res.json({ status: "success" }).status(200);
   });
 
-  app.use("/testplans", route);
+  app.use("/applications", route);
   route.get(
-    "/testplan",
-    //middlewares.isAuth,
+    "/:id",
+    middlewares.applicationDetail.getApplicationById,
     //middlewares.attachCurrentUser,
     (req: Request, res: Response) => {
-      return res.json({ user: "testplans" }).status(200);
+      return res; //.json({ application: res.application }).status(200);
+      //return res.json({ application: res.application }).status(200);
+    }
+  );
+
+  route.post(
+    "/",
+    middlewares.applicationDetail.createApplication,
+    (req: Request, res: Response) => {
+      return res.json({ user: req.applicationModel }).status(200);
     }
   );
 };
