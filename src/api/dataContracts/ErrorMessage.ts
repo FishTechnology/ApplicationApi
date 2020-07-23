@@ -1,4 +1,4 @@
 export class ErrorMessage {
-  errorCode?: string;
-  message?: string;
+  errorCode?: string | null;
+  message?: string | null;
 }

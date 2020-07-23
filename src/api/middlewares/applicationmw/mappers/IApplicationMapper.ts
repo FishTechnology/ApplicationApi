@@ -1,8 +1,15 @@
 import { CreateAppMsgEntity } from "../dataContracts/messageEntities/CreateAppMsgEntity";
-import { ApplicationModel } from "../dataContracts/models/ApplicationModel";
+import { ApplicationModelWrapper } from "../dataContracts/models/ApplicationModelWrapper";
+import { ErrorMessage } from "../../../dataContracts/ErrorMessage";
 
 export interface IApplicationMapper {
   mapCreateAppMsgEntity(bodyReq: object): CreateAppMsgEntity;
 
-  mapApplicationModel(createAppMsgEntity: CreateAppMsgEntity): ApplicationModel;
+  mapApplicationModelWrapperErrorMsg(
+    errorMessage: Array<ErrorMessage>
+  ): ApplicationModelWrapper;
+
+  mapApplicationModel(
+    createAppMsgEntity: CreateAppMsgEntity
+  ): ApplicationModelWrapper;
 }

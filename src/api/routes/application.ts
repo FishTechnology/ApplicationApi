@@ -4,26 +4,31 @@ import middlewares from "../middlewares";
 const route = Router();
 
 export default (app: Router) => {
-  app.get("/test", (req: Request, res: Response) => {
-    res.json({ status: "success" }).status(200);
-  });
-
   app.use("/applications", route);
+
   route.get(
     "/:id",
-    middlewares.applicationDetail.getApplicationById,
-    //middlewares.attachCurrentUser,
-    (req: Request, res: Response) => {
-      return res; //.json({ application: res.application }).status(200);
-      //return res.json({ application: res.application }).status(200);
+    middlewares.ApplicationMW.getApplicationById,
+    async (req: Request, res: Response) => {
+      try {
+        return res.json(res.applicationModel).status(200);
+      } catch (e) {
+        return res.status(500).send(e.message);
+      }
     }
   );
-
   route.post(
     "/",
-    middlewares.applicationDetail.createApplication,
-    (req: Request, res: Response) => {
-      return res.json({ user: req.applicationModel }).status(200);
+    middlewares.ApplicationMW.createApplication,
+    async (req: Request, res: Response) => {
+      try {
+        const appModelWrapper = req.applicationModelWrapper;
+        return res
+          .json(appModelWrapper.applicationModel)
+          .status(appModelWrapper.responseStatusCode);
+      } catch (e) {
+        return res.status(500).send(e.message);
+      }
     }
   );
 };

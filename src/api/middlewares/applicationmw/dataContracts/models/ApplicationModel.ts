@@ -1,6 +1,11 @@
-import { ErrorMessageModel } from "./ErrorMessageModel";
-
 export class ApplicationModel {
-  applicationId?: number;
-  ErrorDetail: Array<ErrorMessageModel>;
+  id?: number;
+  name?: string;
+  username?: string;
+  emailaddress?: string;
+  createdon?: Date;
+  createdby?: string;
+  modifiedon?: Date;
+  modifiedby?: string;
+  status?: string;
 }

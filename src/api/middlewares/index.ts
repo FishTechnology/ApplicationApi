@@ -1,5 +1,5 @@
-import applicationDetail from "./applicationmw/application";
+import ApplicationMW from "./applicationmw/ApplicationMW";
 
 export default {
-  applicationDetail,
+  ApplicationMW,
 };

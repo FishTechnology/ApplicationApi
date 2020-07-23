@@ -1,13 +1,12 @@
-import 'reflect-metadata'; // We need this in order to use @Decorators
-
-import config from './config';
-
-import express from 'express';
-
-import Logger from './loaders/logger';
+import "reflect-metadata";
+import express from "express";
+import config from "./config";
+import Logger from "./loaders/logger";
+import expressLoader from "./loaders/express";
+import loaderConfig from "./loaders/index";
 
 async function startServer() {
-  const app = express();
+  let app = express();
 
   /**
    * A little hack here
@@ -15,9 +14,10 @@ async function startServer() {
    * Well, at least in node 10 without babel and at the time of writing
    * So we are using good old require.
    **/
-  await require('./loaders').default({ expressApp: app });
+  //await require("./loaders").default({ expressApp: app });
+  await loaderConfig({ expressApp: app });
 
-  app.listen(config.port, err => {
+  app.listen(config.port, (err) => {
     if (err) {
       Logger.error(err);
       process.exit(1);
@@ -30,5 +30,4 @@ async function startServer() {
     `);
   });
 }
-
 startServer();
